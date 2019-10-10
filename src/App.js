@@ -24,6 +24,7 @@ class App extends Component {
         comments: comments,
         loading: false
     });
+    console.log("this is the state",this.state.comments)
 }
 
   handleLogout = () => {
@@ -36,6 +37,7 @@ class App extends Component {
 
 
   render() {
+    console.log("we know what you are",this.state.comments.comments)
     return (
       <div>
           <NavBar />
@@ -54,7 +56,7 @@ class App extends Component {
           } />
           <Route exact path='/commentspage' render={(props) =>
             <MainPage 
-            comments={this.state.comments}
+            comments={this.state.comments.comments}
             />
           } />
 

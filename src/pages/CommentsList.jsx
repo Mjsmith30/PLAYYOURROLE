@@ -9,7 +9,7 @@ const CommentsList = props => {
             <h1>
                 <span>{props.comments.length}</span>
                 {" "}
-                Comments{props.comments.length > 0 ? "s" : ""}
+                Comment{props.comments.length > 0 ? "s" : ""}
             </h1>
             {props.comments.length === 0 && !props.loading ? (
                 <div className="alert text-center alert-info">

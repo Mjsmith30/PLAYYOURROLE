@@ -98,7 +98,7 @@ class MainPage extends Component {
     render() {
         console.log("HITTING")
         // const loadingSpin = this.state.loading ? "App-logo Spin" : "App-logo";
-        console.log(this.props.comments)
+        console.log(this.state.comments)
         return (
             
             <div className="App container bg-light shadow">
