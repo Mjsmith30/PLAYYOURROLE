@@ -8,12 +8,8 @@ import * as commentsAPI from './services/comments-api';
 
 
 class MainPage extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.addComment = this.addComment.bind(this);
-    // }
+
     state = {
-        comments: this.props.comments,
         addComment: []
     }
 
@@ -41,7 +37,7 @@ class MainPage extends Component {
         await commentsAPI.deleteOne(id);
         this.setState(state => ({
             // Yay, filter returns a NEW array
-            comments: state.comments.filter(c => c._id !== id)
+            comments: this.props.comments.filter(c => c._id !== id)
         }), () => this.props.history.push('/mainpage'));
     }
 
@@ -54,7 +50,7 @@ class MainPage extends Component {
         }
         this.setState({ error: "", loading: true });
 
-        let { comment } = this.state;
+        let { comment } = this.props;
         fetch("http://localhost:3001/comments", {
             method: "POST",
             body: JSON.stringify(comment)
@@ -81,7 +77,7 @@ class MainPage extends Component {
             });
     }
     isFormValid() {
-        return this.state.comment.name !== "" && this.state.comment.message !== "";
+        return this.props.comment.name !== "" && this.props.comment.message !== "";
     }
 
     /*--- Lifecycle Methods ---*/
@@ -98,7 +94,7 @@ class MainPage extends Component {
     render() {
         console.log("HITTING")
         // const loadingSpin = this.state.loading ? "App-logo Spin" : "App-logo";
-        console.log(this.state.comments)
+        console.log(this.props.comments)
         return (
             
             <div className="App container bg-light shadow">
@@ -119,7 +115,7 @@ class MainPage extends Component {
                     <div className="col-8  pt-3 bg-white">
                         <CommentList
                             // loading={this.state.loading}
-                            comments={this.state.comments}
+                            comments={this.props.comments}
                         />
                     </div>
                 </div>
