@@ -6,15 +6,25 @@ import userService from './utils/userService';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './Login/LoginPage';
 import MainPage from './MainPage';
+import * as commentsAPI from './services/comments-api';
+
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: userService.getUser()
+      user: userService.getUser(),
+      comments: []
     };
   }
 
+  async componentDidMount() {
+    const comments = await commentsAPI.getAll()
+    this.setState({
+        comments: comments,
+        loading: false
+    });
+}
 
   handleLogout = () => {
     userService.logout();
@@ -28,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div>
-
+          <NavBar />
         <Switch>
           <Route exact path='/signup' render={({ history }) =>
             <SignupPage
@@ -42,9 +52,9 @@ class App extends Component {
               handleSignupOrLogin={this.handleSignupOrLogin}
             />
           } />
-          <NavBar />
           <Route exact path='/commentspage' render={(props) =>
             <MainPage 
+            comments={this.state.comments}
             />
           } />
 

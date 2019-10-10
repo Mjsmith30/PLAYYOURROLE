@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 // import './LoginPage.css';
 import userService from '../utils/userService';
 
@@ -50,7 +50,9 @@ class LoginPage extends Component {
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12 text-center">
+                        <Link to='/commentspage'> 
                             <button className="btn btn-default">Log In</button>&nbsp;&nbsp;&nbsp;
+                            </Link>
               <Link to='/'>Cancel</Link>
                         </div>
                     </div>

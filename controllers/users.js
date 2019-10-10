@@ -4,8 +4,22 @@ const SECRET = process.env.SECRET;
 
 module.exports = {
   signup,
-  login
+  login,
+  getUser
 };
+
+async function getUser (req,res) {
+  console.log("hitting")
+  try{
+    let allUsers = await User.find({});
+    console.log(allUsers)
+    res.json({
+      allUsers
+    })
+  }catch(err){
+    return err
+  }
+}
 
 async function login(req, res) {
   try {

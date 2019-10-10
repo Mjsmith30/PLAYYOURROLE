@@ -44,7 +44,7 @@ class CommentForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <form method="post" onSubmit={this.onSubmit}>
+                <form method="post" onSubmit={this.state.onSubmit}>
                     <div className="form-group">
                         <input
                             onChange={this.handleFieldChange}

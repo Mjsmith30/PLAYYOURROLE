@@ -1,22 +1,35 @@
-const Comment = require('../../models/games')
+const Comment = require('../models/comments')
 
 module.exports = {
     index,
     show,
     create,
-    delete: deleteOne,
+    deleteOne,
     update
   };
   
 //the main page is the games page
-async function index(req, res) {
-    const comments = await Comment.find({});
-    res.status(200).json(comments);
+// async function index(req, res) {
+//     const comments = await Comment.find({});
+//     res.status(200).json(comments);
+//   }
+  async function index (req,res) {
+    console.log("hitting")
+    try{
+      let comments = await Comment.find({});
+      console.log("here are all the comments",comments)
+      res.json({
+        comments
+      })
+    }catch(err){
+      return err
+    }
   }
   
   async function show(req, res) {
     const comment = await Comment.findById(req.params.id);
-    res.status(200).json(comment);
+    // res.status(200).json(comment);
+    res.json({comment})
   }
   
   async function create(req, res) {
