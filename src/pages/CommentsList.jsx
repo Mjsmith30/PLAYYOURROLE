@@ -3,11 +3,12 @@ import Comments from "./Comments"
 
 
 function CommentsList(props){
+    console.log('hit 1', props.comments.comments)
     return (
         <>
         <h1> Comments </h1>
         <div>
-            {this.props.comments.map(comments =>
+            {props.comments.map(comments =>
              <Comments 
              key={comments._id} 
              comments={comments} 

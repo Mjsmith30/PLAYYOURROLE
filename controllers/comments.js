@@ -16,13 +16,13 @@ module.exports = {
 async function index(req, res) {
   console.log("hitting")
   try {
-    let comments = await Comment.find({});
-    console.log("here are all the comments", comments)
-    // the commented out code below was returning an object instead of an array
-    // res.json({
-    //   comments
-    // })
-    res.json({comments})
+    let comments = await Comment.find({})
+    .populate("user")
+    .exec(function(err, comments){
+      if (err) res.status(400).json(err);
+      res.json(comments)
+    })
+  
   } catch (err) {
     // change this line too
     res.status(400).json(err);
@@ -32,10 +32,11 @@ async function index(req, res) {
 async function show(req, res) {
   const comment = await Comment.findById(req.params.id);
   // res.status(200).json(comment);
-  res.json({ comment })
+  res.json( comment )
 }
 
 async function create(req, res) {
+  console.log(req.body)
   const comment = await Comment.create(req.body);
   res.status(201).json(comment);
 }

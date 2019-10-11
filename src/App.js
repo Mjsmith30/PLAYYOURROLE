@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavBar from './NavBar/NavBar.jsx'
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import userService from './utils/userService';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './Login/LoginPage';
@@ -105,7 +105,7 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.comments)
+    // console.log("young and wild",this.state.user)
 
     return (
       <div>
@@ -113,6 +113,7 @@ class App extends Component {
         user={this.state.user}
         handleLogout={this.handleLogout}
       />
+      <Link to='/commentspage'>CommentsPage</Link>
         <Switch>
           <Route exact path='/signup' render={({ history }) =>
             <SignupPage
@@ -121,15 +122,18 @@ class App extends Component {
             />
           } />
           <Route exact path='/login' render={({ history }) =>
+          //  userService.getUser() ?
             <LoginPage
               history={history}
               handleSignupOrLogin={this.handleSignupOrLogin}
             />
+            
           } />
           <Route exact path='/commentspage' render={(props) =>
             <MainPage
               comments={this.state.comments}
               addComment={this.addComment}
+              user={this.state.user}
             />
           } />
           

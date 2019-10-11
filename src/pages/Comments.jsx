@@ -1,11 +1,12 @@
 import React from 'react';
 
 const Comments = (props) => {
-    const { name, comment } = props.comments;
+    const { user, text } = props.comments;
+    console.log("props to my people",props.comments)
     return (
         <div>
-            <h4>{name}</h4>
-            <h5>{comment}</h5>
+            <h4>{user.name}</h4>
+            <h5>{text}</h5>
             {/* <small>{time}</small> */}
             {/* <Img /> */}
         </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import userService from '../utils/userService';
 
 
 //Form for creating comments
@@ -7,12 +7,15 @@ class CommentForm extends Component {
   state ={
       invalidForm: true,
       formData:{ 
-                name: "",
-                comment: ""
+                text: "",
+                user: userService.getUser(),
+
             }
         };
 
         formRef = React.createRef();
+        
+   
         
         renderError() {
             return this.state.error ? (
@@ -37,24 +40,19 @@ class CommentForm extends Component {
                 <React.Fragment>
                     <h1>Add Comments</h1>
                     <form ref={this.formRef} autoComplete="off" onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <input
-                                onChange={this.handleChange}
-                                value={this.state.formData.name}
-                                className="form-control"
-                                placeholder="Your Name"
-                                name="name"
-                                type="text"
-                            />
-                        </div>
-
+                     <input 
+                      
+                        value={this.state.user ? this.state.user : "you shall not pass"}
+                        name="user"
+                     
+                     ></input>
                         <div className="form-group">
                             <textarea
                                 onChange={this.handleChange}
                                 value={this.state.formData.comment}
                                 className="form-control"
                                 placeholder="Comment Here"
-                                name="comment"
+                                name="text"
                                 rows="5"
                             />
                         </div>

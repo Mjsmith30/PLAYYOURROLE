@@ -20,7 +20,9 @@ const MainPage = props => {
                 <div className="row">
                     <div className="col-4  pt-3 border-right">
                         <h6>Say something about your Game</h6>
-                        <CommentForm addComment={props.addComment}/>
+                        <CommentForm 
+                        user={props.user}
+                        addComment={props.addComment}/>
                     </div>
                     <div className="col-8  pt-3 bg-white">
                         <CommentList
@@ -28,6 +30,7 @@ const MainPage = props => {
                             comments={props.comments}
                            
                         />
+                        {/* <Link to='/commentspage'>CommentsPage</Link> */}
                     </div>
                 </div>
             </div>

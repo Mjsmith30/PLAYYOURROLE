@@ -53,9 +53,9 @@ class LoginPage extends Component {
                     </div>
                     <div className="form-group">
                         <div className="col-sm-12 text-center">
-                        <Link to='/commentspage'> 
+                        <Link to='/commentspage'>CommentsPage</Link>
                             <button className="btn btn-default">Log In</button>&nbsp;&nbsp;&nbsp;
-                            </Link>
+                            
               <Link to='/'>Cancel</Link>
                         </div>
                     </div>
