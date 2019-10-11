@@ -5,7 +5,7 @@ import CommentList from './CommentsList'
 
 
 const MainPage = props => {
-
+    console.log("comments from mainpage", props.comments)
         return (
             <div className="App container bg-light shadow">
                 <header className="App-header">
@@ -20,12 +20,13 @@ const MainPage = props => {
                 <div className="row">
                     <div className="col-4  pt-3 border-right">
                         <h6>Say something about your Game</h6>
-                        <CommentForm addComment={this.addComment} onSubmit={this.onSubmit}/>
+                        <CommentForm addComment={props.addComment}/>
                     </div>
                     <div className="col-8  pt-3 bg-white">
                         <CommentList
-                            // loading={this.state.loading}
-                            comments={this.props.comments}
+                            loading={props.loading}
+                            comments={props.comments}
+                           
                         />
                     </div>
                 </div>

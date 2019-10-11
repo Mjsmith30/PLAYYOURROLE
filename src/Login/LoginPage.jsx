@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import './LoginPage.css';
 import userService from '../utils/userService';
 
@@ -22,10 +22,13 @@ class LoginPage extends Component {
 
         e.preventDefault();
         try {
+            console.log('login hit')
+
             await userService.login(this.state);
             this.props.handleSignupOrLogin();
             // Successfully signed up - show GamePage
             this.props.history.push('/');
+
         } catch (err) {
             // Invalid user data (probably duplicate email)
             alert('Invalid Credentials!');

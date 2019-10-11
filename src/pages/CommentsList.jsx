@@ -2,24 +2,21 @@ import React from 'react'
 import Comments from "./Comments"
 
 
-const CommentsList = props => {
-    console.log(props)
+function CommentsList(props){
     return (
+        <>
+        <h1> Comments </h1>
         <div>
-            <h1>
-                <span>{props.comments.length}</span>
-                {" "}
-                Comment{props.comments.length > 0 ? "s" : ""}
-            </h1>
-            {props.comments.length === 0 && !props.loading ? (
-                <div className="alert text-center alert-info">
-                    Be the first to comment
+            {this.props.comments.map(comments =>
+             <Comments 
+             key={comments._id} 
+             comments={comments} 
+             commentDelete={props.commentDelete} 
+             />
+        )}
+               
         </div>
-            ) : null}
-            {props.comments.map((comments, index) => (
-                <Comments key={index} comments={comments} />
-            ))}
-        </div>
+        </>
 
     );
 }

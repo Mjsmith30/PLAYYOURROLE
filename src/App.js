@@ -5,18 +5,21 @@ import { Route, Switch } from 'react-router-dom';
 import userService from './utils/userService';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './Login/LoginPage';
-import MainPage from './MainPage';
+import MainPage from './pages/MainPage';
 import * as commentsAPI from './services/comments-api';
-
+// import { create } from 'istanbul-reports';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       user: userService.getUser(),
-      comments: []
+      comments: [],
+      isLog: false
     };
   }
+
+
 
   async componentDidMount() {
     const comments = await commentsAPI.getAll()
@@ -25,12 +28,12 @@ class App extends Component {
       loading: false
     });
   }
-  addComment = async Comment => {
-    const comment = await create(Comment);
+  addComment = async message => {
+  const comment = await commentsAPI.create(message);
     this.setState(state => ({
       loading: false,
-      comments: [comment, ...this.state.comments]
-    }), () => this.props.history.push('/mainpage'));
+      comments: [comment, ...state.comments]
+    }), () => this.props.history.push('/commentspage'));
   }
 
   commentsUpdate = async updatedCommentData => {
@@ -41,7 +44,7 @@ class App extends Component {
     this.setState(
       { comments: newCommentsArray },
       // Using cb to wait for state to update before rerouting
-      () => this.props.history.push('/mainpage')
+      () => this.props.history.push('/commentspage')
     );
   }
 
@@ -49,8 +52,8 @@ class App extends Component {
     await commentsAPI.deleteOne(id);
     this.setState(state => ({
       // Yay, filter returns a NEW array
-      comments: this.props.comments.filter(c => c._id !== id)
-    }), () => this.props.history.push('/mainpage'));
+      comments: state.comments.filter(c => c._id !== id)
+    }), () => this.props.history.push('/commentspage'));
   }
 
   async onSubmit(submit) {
@@ -63,7 +66,7 @@ class App extends Component {
     this.setState({ error: "", loading: true });
 
     let { comment } = this.props;
-    fetch("http://localhost:3001/comments", {
+    fetch("/comments", {
       method: "POST",
       body: JSON.stringify(comment)
     })
@@ -96,15 +99,20 @@ class App extends Component {
     this.setState({ user: null });
   }
   handleSignupOrLogin = () => {
-    this.setState({ user: userService.getUser() });
+    console.log('handlesiorlogin')
+    this.setState({ user: userService.getUser(), loggg: true });
   }
 
 
   render() {
-    console.log("we know what you are", this.state.comments.comments)
+    console.log(this.state.comments)
+
     return (
       <div>
-        <NavBar />
+         <NavBar
+        user={this.state.user}
+        handleLogout={this.handleLogout}
+      />
         <Switch>
           <Route exact path='/signup' render={({ history }) =>
             <SignupPage
@@ -120,9 +128,11 @@ class App extends Component {
           } />
           <Route exact path='/commentspage' render={(props) =>
             <MainPage
-              comments={this.state.comments.comments}
+              comments={this.state.comments}
+              addComment={this.addComment}
             />
           } />
+          
 
         </Switch>
 

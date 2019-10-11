@@ -4,80 +4,72 @@ import React, { Component } from 'react';
 
 //Form for creating comments
 class CommentForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false,
-            error: "",
-            comment: {
+  state ={
+      invalidForm: true,
+      formData:{ 
                 name: "",
-                message: ""
+                comment: ""
             }
         };
-        //binding context to methods here
-        this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-    handleFieldChange = event => {
-        const { value, name } = event.target;
 
-        this.setState({
-            ...this.state,
-            comment: {
-                ...this.state.comment,
-                [name]: value
-            }
-        });
-    };
-    //submitting the Form here
-    onSubmit(e) {
-        //prevents you from submitting empty form
-        e.preventDefault();
-    }
-    renderError() {
-        return this.state.error ? (
-            <div>{this.state.error}</div>
-        ) : null;
-    }
+        formRef = React.createRef();
+        
+        renderError() {
+            return this.state.error ? (
+                <div>{this.state.error}</div>
+            ) : null;
+        }
+        handleSubmit = e => {
+            e.preventDefault();
+            this.props.addComment(this.state.formData);
+        };
 
+        handleChange = e => {
+            const formData = { ...this.state.formData, [e.target.name]: e.target.value };
+            this.setState({
+                formData,
+                invalidForm: !this.formRef.current.checkValidity()
+            });
+        };
+    
+        render() {
+            return (
+                <React.Fragment>
+                    <h1>Add Comments</h1>
+                    <form ref={this.formRef} autoComplete="off" onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <input
+                                onChange={this.handleChange}
+                                value={this.state.formData.name}
+                                className="form-control"
+                                placeholder="Your Name"
+                                name="name"
+                                type="text"
+                            />
+                        </div>
 
-    render() {
-        return (
-            <React.Fragment>
-                <form method="post" onSubmit={this.state.onSubmit}>
-                    <div className="form-group">
-                        <input
-                            onChange={this.handleFieldChange}
-                            value={this.state.comment.name}
-                            className="form-control"
-                            placeholder="Your Name"
-                            name="name"
-                            type="text"
-                        />
-                    </div>
+                        <div className="form-group">
+                            <textarea
+                                onChange={this.handleChange}
+                                value={this.state.formData.comment}
+                                className="form-control"
+                                placeholder="Comment Here"
+                                name="comment"
+                                rows="5"
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <textarea
-                            onChange={this.handleFieldChange}
-                            value={this.state.comment.message}
-                            className="form-control"
-                            placeholder="Comment Here"
-                            name="message"
-                            rows="5"
-                        />
-                    </div>
+                        {this.renderError()}
 
-                    {this.renderError()}
-
-                    <div className="form-group">
-                        <button type ="submit" disabled={this.state.loading} className="btn">
-                            Comment ➤
+                        <div className="form-group">
+                            <button type="submit" disabled={this.state.invalidForm} className="btn">
+                                Comment ➤
             </button>
-                    </div>
-                </form>
-            </React.Fragment>
-        );
-    }
-};
+                        </div>
+                    </form>
+                </React.Fragment>
+            );
+        }
+    };
 
-export default CommentForm;
+    export default CommentForm;
