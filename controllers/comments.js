@@ -16,18 +16,18 @@ module.exports = {
 async function index(req, res) {
   console.log("hitting")
   try {
-    let comments = await Comment.find({})
-    .populate("user")
-    .exec(function(err, comments){
-      if (err) res.status(400).json(err);
-      res.json(comments)
-    })
-  
+    let comments = await Comment.find({}).populate("user");
+    res.json(comments);
   } catch (err) {
-    // change this line too
     res.status(400).json(err);
   }
-}
+ }
+  
+  // } catch (err) {
+  //   // change this line too
+  //   res.status(400).json(err);
+  // }
+
 
 async function show(req, res) {
   const comment = await Comment.findById(req.params.id);

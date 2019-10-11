@@ -9,7 +9,7 @@ class CommentForm extends Component {
       formData:{ 
                 text: "",
                 user: userService.getUser(),
-
+                
             }
         };
 

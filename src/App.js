@@ -134,6 +134,7 @@ class App extends Component {
               comments={this.state.comments}
               addComment={this.addComment}
               user={this.state.user}
+              commentDelete={this.commentDelete}
             />
           } />
           

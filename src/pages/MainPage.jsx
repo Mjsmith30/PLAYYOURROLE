@@ -28,6 +28,7 @@ const MainPage = props => {
                         <CommentList
                             loading={props.loading}
                             comments={props.comments}
+                            commentDelete={props.commentDelete}
                            
                         />
                         {/* <Link to='/commentspage'>CommentsPage</Link> */}
