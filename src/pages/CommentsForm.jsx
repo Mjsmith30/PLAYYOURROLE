@@ -44,6 +44,7 @@ class CommentForm extends Component {
                       
                         value={this.state.user ? this.state.user : "you shall not pass"}
                         name="user"
+                        
                      
                      ></input>
                         <div className="form-group">

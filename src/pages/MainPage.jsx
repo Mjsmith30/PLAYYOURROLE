@@ -5,7 +5,7 @@ import CommentList from './CommentsList'
 
 
 const MainPage = props => {
-    console.log("comments from mainpage", props.comments)
+    // console.log("comments from mainpage", props.comments)
         return (
             <div className="App container bg-light shadow">
                 <header className="App-header">
